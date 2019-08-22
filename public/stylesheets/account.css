@@ -1,0 +1,56 @@
+.indexfooter {
+    background-color:dimgrey;
+  }
+  
+  .indexnavbar {
+   background-color:grey;
+   justify-content:space-between;
+  }
+  
+  
+  
+  .supreme {
+    padding:3px;
+    background-color:red;
+    color:white;
+  }
+  
+  
+  .indexSearch {
+    display:none;
+    transition-duration:0.5s;
+  }
+  
+  .indexcolumn1 {
+    background-image:url("/images/test.jpeg");
+    object-fit: cover;
+    height:570px;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .btn:focus,.btn:active {
+     outline: none !important;
+     box-shadow: none;
+  }
+  
+  #login {
+    align-content: center;
+    width:400px;
+    padding:10px;
+  }
+  
+#loglab {
+  text-align: center;
+  font-weight: 700;
+  font-size:20px;
+}
+
+ #forpass {
+     margin-left:9px;
+     text-decoration:none;
+     font-size:14px;
+     opacity:0.8;
+ }  

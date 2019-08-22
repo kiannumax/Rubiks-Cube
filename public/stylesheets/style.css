@@ -1,34 +1,37 @@
 
-#header{
-background-color:dimgrey;
-height:90px;
-width:100%;
-position:absolute;
-top:0px;
-left:0px;
+/* .indexheader{
+
+} */
+
+.indexfooter {
+  background-color:dimgrey;
 }
 
 .indexnavbar {
-  position:absolute;
-  left:0px;
-  top:90px;
-  width:100%;
+ background-color:grey;
+ justify-content:space-between;
 }
 
-.indexcolumns {
-  position:absolute;
-  width:100%;
-  left:0px;
-  top:158px;
+
+
+.supreme {
+  padding:3px;
+  background-color:red;
+  color:white;
+}
+
+
+.indexSearch {
+  display:none;
+  transition-duration:0.5s;
 }
 
 .indexcolumn1 {
-  margin:none;
+  height:700px;
 }
 
-.indexlinks {
-  display:inline-block;
+.btn:focus,.btn:active {
+   outline: none !important;
+   box-shadow: none;
 }
 
-/* .indexcolumn2 {
-} */
