@@ -4,14 +4,14 @@
   }
   
   .supreme {
-   padding:3px;
-   background-color:red;
-   color:white;
+    padding:3px;
+    background-color:red;
+    color:white;
   }
   
- .indexSearch {
-   display:none;
-   transition-duration:0.5s;
+  .indexSearch {
+    display:none;
+    transition-duration:0.5s;
   }
   
   .btn:focus,.btn:active {
@@ -19,47 +19,33 @@
     box-shadow: none;
   }
 
-  
+
   .indexcolumn1 {
     background-image:url("/images/test.jpeg");
     object-fit: cover;
-    height:600px;
+    height:650px;
     display:flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
   }
   
-  #login {
+  #create {
     align-content: center;
     width:400px;
     padding:10px;
-    padding-bottom:4px;
   }
 
-  #crerem {
-   display:flex;
-   justify-content: space-between;
+  #submitButton {
+    margin-top:9px;
   }
 
-  /* #submitButton {
-   margin-top:9px;
-  } */
+  #crelab {
+  text-align: center;
+  font-weight: 700;
+  font-size:20px;
+ }
 
-  #loglab {
-   text-align: center;
-   font-weight: 700;
-   font-size:20px;
-  }
-
-  #forpass {
-   margin-left:9px;
-   text-decoration:none;
-   font-size:14px;
-   opacity:0.8;
-  }  
-
-
-  .indexfooter {
+ .indexfooter {
     background-color:dimgrey;
   }

@@ -10,7 +10,7 @@
      <script src="/javascripts/indexjq.js"></script>
      <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css">
      <link rel="stylesheet" href=/node_modules/@fortawesome/fontawesome-free/css/all.css>
-     <link rel="stylesheet" href="/stylesheets/account.css">
+     <link rel="stylesheet" href="/stylesheets/forgotP.css">
   </head>
 
   <body>
@@ -43,25 +43,14 @@
       <div class="row">
        <div class="col-sm-12 indexcolumn1">
          <form action="account.html" class="card" id="login">
-            <label id="loglab">Log in</label>
+            <label id="loglab">Change password</label>
+            <p id="forgottext">Please enter the email address associated with your account.                    
+                 You will receive a link to create a new password via email.
+                </p>
             <div class="form-group">
-              <label for="email">Email adress</label>
-              <input type="email" class="form-control" id="email" placeholder="Enter email" required>
+              <input type="email" class="form-control" id="email" placeholder="Enter email adress" required>
             </div>
-            <div class="form-group">
-              <label for="password">Password</label>
-              <input type="password" class="form-control" id="password" placeholder="Enter password" required>
-              <a href="forgotP.html" id="forpass">Forgot password?</a>
-            </div>
-            <button type="submit" class="btn btn-primary">Login</button>
-            <div id="crerem">
-              <a href="create.html" id="registLink">Create Account</a>
-              <div class="form-check">
-               <label class="form-check-label">
-                 <input class="form-check-input" type="checkbox">
-                  Remember me
-               </label>
-              </div>
+            <button type="submit" class="btn btn-primary">Send email</button>
             </div>
           </form>
        </div>
