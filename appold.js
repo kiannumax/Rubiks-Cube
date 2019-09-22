@@ -3,10 +3,10 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var http = require('http');
-var port = normalizePort(process.env.PORT || '5000');
+var port = normalizePort(process.env.PORT || '4000');
 var debug = require('debug')('guest-services:server');
-// var indexRouter = require('./routes/index');
-// var usersRouter = require('./routes/users');
+var indexRouter = require('./routes/index');
+var usersRouter = require('./routes/users');
 
 var app = express();
 
@@ -17,15 +17,11 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'client/public/src')));
+app.use(express.static(path.join(__dirname, 'client/oldsite')));
 
-// app.use('/', indexRouter);
-// app.use('/users', usersRouter);
+app.use('/', indexRouter);
+app.use('/users', usersRouter);
 
-// create a GET route
-app.get('/express_backend', (req, res) => {
-  res.send({ express: 'YOUR EXPRESS BACKEND IS CONNECTED TO REACT' });
-});
 
 
 var server = http.createServer(app);

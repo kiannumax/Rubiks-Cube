@@ -4,12 +4,26 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+
         
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch Program",
-            "program": "${workspaceFolder}/app.js"
+            "name": "Launch Old Site",
+            "program": "${workspaceFolder}/appold.js"
+        },
+    {
+        "type": "node",
+        "request": "launch",
+        "name": "Launch React Site",
+        "program": "${workspaceFolder}/app.js"
+    },
+        {
+            "name": "Chrome",
+            "type": "chrome",
+            "request": "launch",
+            "url": "http://localhost:3000",
+            "webRoot": "${workspaceRoot}/client/src"
         }
     ]
 }
