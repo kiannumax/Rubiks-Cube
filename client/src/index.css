@@ -275,12 +275,12 @@ body {
 }
 
 #time {
-  z-index:999;
-  position:absolute;
-  top:20px;
-  left:50px;
-  color:rgb(141, 7, 7);
-  font-size:80px;
+  z-index:100;
+  position: absolute;
+  top: 20px;
+  left: 50px;
+  color: black;
+  font-size: 80px;
 }
 
 #canvas {
@@ -316,7 +316,6 @@ body {
 #buttons {
   position:absolute;
   top:450px;
-  left:10px;
   display: grid;
   grid-template-columns: auto auto auto;
   z-index:100;
@@ -325,6 +324,8 @@ body {
   border-right: 1.5px groove grey;
   padding-top: 5px;
   padding-right: 5px;
+  padding-left: 10px;
+  height:342px;
 }
 
 .rubiksRow {
@@ -344,10 +345,9 @@ body {
   transition:1s
 }
 
-/* .rubiksButton {
-  height:104px !important;
-  width: 41px !important;
-} */
+.rubiksButton {
+  outline: none !important;
+} 
 
 
   #moves {

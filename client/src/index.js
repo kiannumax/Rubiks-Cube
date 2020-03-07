@@ -5,13 +5,41 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSkullCrossbones } from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { TimeButtons } from './reactHooks.js'
 import './index.css';
 // import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+function MoveItem({ move, index }) {
+    return(
+        <li>
+            <span>{index}</span>
+            {move.title}
+        </li>
+    )
+}
+
+function MovesList(props) {
+    return(
+        <ul>
+            {props.array.map((move, index) => {
+                return <MoveItem move={move} index={index} key={move.id} />
+            })}
+        </ul>
+    )
+}
+
+function MoveToObject(props) {
+    let x = []
+    props.array.map((move) => {
+        x.push({title: move.name})
+    })
+    return <MovesList array={x} />
+}
+
 class RubiksCube extends React.Component {
     constructor(props) {
-        let b = "blue",
+        const b = "blue",
             o = "orange",
             r = "red",
             g = "green",
@@ -25,7 +53,7 @@ class RubiksCube extends React.Component {
         LfRtE: o,LsRfE: o,LsRsE: o,LsRtE: o,LtRfE: o,LtRsE: o,LtRtE: o,RfRfE: r,RfRsE: r,RfRtE: r,RsRfE: r,RsRsE: r,
         RsRtE: r,RtRfE: r,RtRsE: r,RtRtE: r,BfRfE: g,BfRsE: g,BfRtE: g,BsRfE: g,BsRsE: g,BsRtE: g,BtRfE: g,BtRsE: g,
         BtRtE: g,UfRfE: y,UfRsE: y,UfRtE: y,UsRfE: y,UsRsE: y,UsRtE: y,UtRfE: y,UtRsE: y,UtRtE: y,DfRfE: w,DfRsE: w,
-        DfRtE: w,DsRfE: w,DsRsE: w,DsRtE: w,DtRfE: w,DtRsE: w,DtRtE: w,rotateY: 320,rotateX: 0}
+        DfRtE: w,DsRfE: w,DsRsE: w,DsRtE: w,DtRfE: w,DtRsE: w,DtRtE: w,rotateY: 320,rotateX: 0,x: []}
 
         this.theUfunction   = this.theUfunction.bind(this);
         this.theU_function  = this.theU_function.bind(this);
@@ -51,16 +79,27 @@ class RubiksCube extends React.Component {
         this.theRW_function = this.theRW_function.bind(this);
         this.theLWfunction  = this.theLWfunction.bind(this);
         this.theLW_function = this.theLW_function.bind(this);
+        this.theFfunction   = this.theFfunction.bind(this);
+        this.theF_function  = this.theF_function.bind(this);
+        this.theBfunction   = this.theBfunction.bind(this);
+        this.theB_function  = this.theB_function.bind(this);
+        this.theSfunction   = this.theSfunction.bind(this);
+        this.theS_function  = this.theS_function.bind(this);
+        this.theFWfunction  = this.theFWfunction.bind(this);
+        this.theFW_function = this.theFW_function.bind(this);
+        this.theBWfunction  = this.theBWfunction.bind(this);
+        this.theBW_function = this.theBW_function.bind(this);
         this.theScramble    = this.theScramble.bind(this);  
+     //   this.theTimer       = this.theTimer.bind(this);
     }
 
     theUfunction() {
         this.setState({LfRfE: this.state.FfRfE,LfRsE: this.state.FfRsE,
         LfRtE: this.state.FfRtE,FfRfE: this.state.RfRfE,FfRsE: this.state.RfRsE,FfRtE: this.state.RfRtE,
         RfRfE: this.state.BfRfE,RfRsE: this.state.BfRsE,RfRtE: this.state.BfRtE,BfRfE: this.state.LfRfE,
-        BfRsE: this.state.LfRsE,BfRtE: this.state.LfRtE,UfRfE: this.state.UfRtE,UfRsE: this.state.UsRtE,
-        UfRtE: this.state.UtRtE,UsRfE: this.state.UfRsE,UsRtE: this.state.UtRsE,UtRfE: this.state.UfRfE,
-        UtRsE: this.state.UsRfE,UtRtE: this.state.UtRfE
+        BfRsE: this.state.LfRsE,BfRtE: this.state.LfRtE,UfRfE: this.state.UtRfE,UfRsE: this.state.UsRfE,
+        UfRtE: this.state.UfRfE,UsRfE: this.state.UtRsE,UsRtE: this.state.UfRsE,UtRfE: this.state.UtRtE,
+        UtRsE: this.state.UsRtE,UtRtE: this.state.UfRtE
         })
     }
 
@@ -68,8 +107,8 @@ class RubiksCube extends React.Component {
         this.setState({LfRfE:this.state.BfRfE,LfRsE:this.state.BfRsE,LfRtE:this.state.BfRtE,FfRfE: this.state.LfRfE,
         FfRsE:this.state.LfRsE,FfRtE:this.state.LfRtE,RfRfE:this.state.FfRfE,RfRsE:this.state.FfRsE,
         RfRtE:this.state.FfRtE,BfRfE:this.state.RfRfE,BfRsE:this.state.RfRsE,BfRtE:this.state.RfRtE,
-        UfRfE: this.state.UtRfE,UfRsE: this.state.UsRfE, UfRtE: this.state.UfRfE,UsRfE: this.state.UtRsE,
-        UsRtE: this.state.UfRsE,UtRfE: this.state.UtRtE,UtRsE: this.state.UsRtE,UtRtE: this.state.UfRtE
+        UfRfE: this.state.UfRtE,UfRsE: this.state.UsRtE,UfRtE: this.state.UtRtE,UsRfE: this.state.UfRsE,
+        UsRtE: this.state.UtRsE,UtRfE: this.state.UfRfE,UtRsE: this.state.UsRfE,UtRtE: this.state.UtRfE
         })
     }
 
@@ -77,9 +116,9 @@ class RubiksCube extends React.Component {
         this.setState({LtRfE: this.state.FtRfE,LtRsE: this.state.FtRsE,
         LtRtE: this.state.FtRtE,FtRfE: this.state.RtRfE,FtRsE: this.state.RtRsE,FtRtE: this.state.RtRtE,
         RtRfE: this.state.BtRfE,RtRsE: this.state.BtRsE,RtRtE: this.state.BtRtE,BtRfE: this.state.LtRfE,
-        BtRsE: this.state.LtRsE,BtRtE: this.state.LtRtE,DfRfE: this.state.DtRfE,DfRsE: this.state.DsRfE,
-        DfRtE: this.state.DfRfE,DsRfE: this.state.DtRsE,DsRtE: this.state.DfRsE,DtRfE: this.state.DtRtE,
-        DtRsE: this.state.DsRtE,DtRtE: this.state.DfRtE
+        BtRsE: this.state.LtRsE,BtRtE: this.state.LtRtE,DfRfE: this.state.DfRtE,DfRsE: this.state.DsRtE,
+        DfRtE: this.state.DtRtE,DsRfE: this.state.DfRsE,DsRtE: this.state.DtRsE,DtRfE: this.state.DfRfE,
+        DtRsE: this.state.DsRfE,DtRtE: this.state.DtRfE
         })
     }
 
@@ -87,9 +126,9 @@ class RubiksCube extends React.Component {
         this.setState({LtRfE: this.state.BtRfE,LtRsE: this.state.BtRsE,
         LtRtE: this.state.BtRtE,FtRfE: this.state.LtRfE,FtRsE: this.state.LtRsE,FtRtE: this.state.LtRtE,
         RtRfE: this.state.FtRfE,RtRsE: this.state.FtRsE,RtRtE: this.state.FtRtE,BtRfE: this.state.RtRfE,
-        BtRsE: this.state.RtRsE,BtRtE: this.state.RtRtE,DfRfE: this.state.DfRtE,DfRsE: this.state.DsRtE,
-        DfRtE: this.state.DtRtE,DsRfE: this.state.DfRsE,DsRtE: this.state.DtRsE,DtRfE: this.state.DfRfE,
-        DtRsE: this.state.DsRfE,DtRtE: this.state.DtRfE
+        BtRsE: this.state.RtRsE,BtRtE: this.state.RtRtE,DfRfE: this.state.DtRfE,DfRsE: this.state.DsRfE,
+        DfRtE: this.state.DfRfE,DsRfE: this.state.DtRsE,DsRtE: this.state.DfRsE,DtRfE: this.state.DtRtE,
+        DtRsE: this.state.DsRtE,DtRtE: this.state.DfRtE
         })
     }
 
@@ -116,9 +155,9 @@ class RubiksCube extends React.Component {
         BsRsE: this.state.LsRsE,BsRtE: this.state.LsRtE,LfRfE: this.state.FfRfE,LfRsE: this.state.FfRsE,
         LfRtE: this.state.FfRtE,FfRfE: this.state.RfRfE,FfRsE: this.state.RfRsE,FfRtE: this.state.RfRtE,
         RfRfE: this.state.BfRfE,RfRsE: this.state.BfRsE,RfRtE: this.state.BfRtE,BfRfE: this.state.LfRfE,
-        BfRsE: this.state.LfRsE,BfRtE: this.state.LfRtE,UfRfE: this.state.UfRtE,UfRsE: this.state.UsRtE,
-        UfRtE: this.state.UtRtE,UsRfE: this.state.UfRsE,UsRtE: this.state.UtRsE,UtRfE: this.state.UfRfE,
-        UtRsE: this.state.UsRfE,UtRtE: this.state.UtRfE
+        BfRsE: this.state.LfRsE,BfRtE: this.state.LfRtE,UfRfE: this.state.UtRfE,UfRsE: this.state.UsRfE,
+        UfRtE: this.state.UfRfE,UsRfE: this.state.UtRsE,UsRtE: this.state.UfRsE,UtRfE: this.state.UtRtE,
+        UtRsE: this.state.UsRtE,UtRtE: this.state.UfRtE
         })
     }
 
@@ -129,9 +168,9 @@ class RubiksCube extends React.Component {
         BsRsE: this.state.RsRsE,BsRtE: this.state.RsRtE,LfRfE: this.state.BfRfE,LfRsE: this.state.BfRsE,
         LfRtE: this.state.BfRtE,FfRfE: this.state.LfRfE,FfRsE: this.state.LfRsE,FfRtE: this.state.LfRtE,
         RfRfE: this.state.FfRfE,RfRsE: this.state.FfRsE,RfRtE: this.state.FfRtE,BfRfE: this.state.RfRfE,
-        BfRsE: this.state.RfRsE,BfRtE: this.state.RfRtE,UfRfE: this.state.UtRfE,UfRsE: this.state.UsRfE,
-        UfRtE: this.state.UfRfE,UsRfE: this.state.UtRsE,UsRtE: this.state.UfRsE,UtRfE: this.state.UtRtE,
-        UtRsE: this.state.UsRtE,UtRtE: this.state.UfRtE
+        BfRsE: this.state.RfRsE,BfRtE: this.state.RfRtE,UfRfE: this.state.UfRtE,UfRsE: this.state.UsRtE,
+        UfRtE: this.state.UtRtE,UsRfE: this.state.UfRsE,UsRtE: this.state.UtRsE,UtRfE: this.state.UfRfE,
+        UtRsE: this.state.UsRfE,UtRtE: this.state.UtRfE
         })
     }
 
@@ -142,9 +181,9 @@ class RubiksCube extends React.Component {
         BsRsE: this.state.RsRsE,BsRtE: this.state.RsRtE,LtRfE: this.state.BtRfE,LtRsE: this.state.BtRsE,
         LtRtE: this.state.BtRtE,FtRfE: this.state.LtRfE,FtRsE: this.state.LtRsE,FtRtE: this.state.LtRtE,
         RtRfE: this.state.FtRfE,RtRsE: this.state.FtRsE,RtRtE: this.state.FtRtE,BtRfE: this.state.RtRfE,
-        BtRsE: this.state.RtRsE,BtRtE: this.state.RtRtE,DfRfE: this.state.DfRtE,DfRsE: this.state.DsRtE,
-        DfRtE: this.state.DtRtE,DsRfE: this.state.DfRsE,DsRtE: this.state.DtRsE,DtRfE: this.state.DfRfE,
-        DtRsE: this.state.DsRfE,DtRtE: this.state.DtRfE
+        BtRsE: this.state.RtRsE,BtRtE: this.state.RtRtE,DfRfE: this.state.DtRfE,DfRsE: this.state.DsRfE,
+        DfRtE: this.state.DfRfE,DsRfE: this.state.DtRsE,DsRtE: this.state.DfRsE,DtRfE: this.state.DtRtE,
+        DtRsE: this.state.DsRtE,DtRtE: this.state.DfRtE
         })
     }
 
@@ -155,117 +194,225 @@ class RubiksCube extends React.Component {
         BsRsE: this.state.LsRsE,BsRtE: this.state.LsRtE,LtRfE: this.state.FtRfE,LtRsE: this.state.FtRsE,
         LtRtE: this.state.FtRtE,FtRfE: this.state.RtRfE,FtRsE: this.state.RtRsE,FtRtE: this.state.RtRtE,
         RtRfE: this.state.BtRfE,RtRsE: this.state.BtRsE,RtRtE: this.state.BtRtE,BtRfE: this.state.LtRfE,
-        BtRsE: this.state.LtRsE,BtRtE: this.state.LtRtE,DfRfE: this.state.DtRfE,DfRsE: this.state.DsRfE,
-        DfRtE: this.state.DfRfE,DsRfE: this.state.DtRsE,DsRtE: this.state.DfRsE,DtRfE: this.state.DtRtE,
-        DtRsE: this.state.DsRtE,DtRtE: this.state.DfRtE
+        BtRsE: this.state.LtRsE,BtRtE: this.state.LtRtE,DfRfE: this.state.DfRtE,DfRsE: this.state.DsRtE,
+        DfRtE: this.state.DtRtE,DsRfE: this.state.DfRsE,DsRtE: this.state.DtRsE,DtRfE: this.state.DfRfE,
+        DtRsE: this.state.DsRfE,DtRtE: this.state.DtRfE
         })
     }
 
     theRfunction() {
-        this.setState({FfRtE: this.state.DtRtE,FsRtE: this.state.DsRtE,
-        FtRtE: this.state.DfRtE,UfRtE: this.state.FtRtE,UsRtE: this.state.FsRtE,UtRtE: this.state.FfRtE,
-        BtRfE: this.state.UtRtE,BsRfE: this.state.UsRtE,BfRfE: this.state.UfRtE,DfRtE: this.state.BfRfE,
-        DsRtE: this.state.BsRfE,DtRtE: this.state.BtRfE,RfRfE: this.state.RtRfE,RfRsE: this.state.RsRfE,
+        this.setState({FfRtE: this.state.DfRtE,FsRtE: this.state.DsRtE,
+        FtRtE: this.state.DtRtE,UfRtE: this.state.FfRtE,UsRtE: this.state.FsRtE,UtRtE: this.state.FtRtE,
+        BtRfE: this.state.UfRtE,BsRfE: this.state.UsRtE,BfRfE: this.state.UtRtE,DfRtE: this.state.BtRfE,
+        DsRtE: this.state.BsRfE,DtRtE: this.state.BfRfE,RfRfE: this.state.RtRfE,RfRsE: this.state.RsRfE,
         RfRtE: this.state.RfRfE,RsRfE: this.state.RtRsE,RsRtE: this.state.RfRsE,RtRfE: this.state.RtRtE,
         RtRsE: this.state.RsRtE,RtRtE: this.state.RfRtE
         })
     }
 
     theR_function() {
-        this.setState({FfRtE: this.state.UtRtE,FsRtE: this.state.UsRtE,
-        FtRtE: this.state.UfRtE,UfRtE: this.state.BfRfE,UsRtE: this.state.BsRfE,UtRtE: this.state.BtRfE,
-        BfRfE: this.state.DfRtE,BsRfE: this.state.DsRtE,BtRfE: this.state.DtRtE,DfRtE: this.state.FtRtE,
-        DsRtE: this.state.FsRtE,DtRtE: this.state.FfRtE,RfRfE: this.state.RfRtE,RfRsE: this.state.RsRtE,
+        this.setState({FfRtE: this.state.UfRtE,FsRtE: this.state.UsRtE,
+        FtRtE: this.state.UtRtE,UfRtE: this.state.BtRfE,UsRtE: this.state.BsRfE,UtRtE: this.state.BfRfE,
+        BfRfE: this.state.DtRtE,BsRfE: this.state.DsRtE,BtRfE: this.state.DfRtE,DfRtE: this.state.FfRtE,
+        DsRtE: this.state.FsRtE,DtRtE: this.state.FtRtE,RfRfE: this.state.RfRtE,RfRsE: this.state.RsRtE,
         RfRtE: this.state.RtRtE,RsRfE: this.state.RfRsE,RsRtE: this.state.RtRsE,RtRfE: this.state.RfRfE,
         RtRsE: this.state.RsRfE,RtRtE: this.state.RtRfE
         })
     }
 
     theL_function() {
-        this.setState({FfRfE: this.state.DtRfE,FsRfE: this.state.DsRfE,
-        FtRfE: this.state.DfRfE,UfRfE: this.state.FtRfE,UsRfE: this.state.FsRfE,UtRfE: this.state.FfRfE,
-        BfRtE: this.state.UfRfE,BsRtE: this.state.UsRfE,BtRtE: this.state.UtRfE,DfRfE: this.state.BfRtE,
-        DsRfE: this.state.BsRtE,DtRfE: this.state.BtRtE,LfRfE: this.state.LfRtE,LfRsE: this.state.LsRtE,
+        this.setState({FfRfE: this.state.DfRfE,FsRfE: this.state.DsRfE,
+        FtRfE: this.state.DtRfE,UfRfE: this.state.FfRfE,UsRfE: this.state.FsRfE,UtRfE: this.state.FtRfE,
+        BfRtE: this.state.UtRfE,BsRtE: this.state.UsRfE,BtRtE: this.state.UfRfE,DfRfE: this.state.BtRtE,
+        DsRfE: this.state.BsRtE,DtRfE: this.state.BfRtE,LfRfE: this.state.LfRtE,LfRsE: this.state.LsRtE,
         LfRtE: this.state.LtRtE,LsRfE: this.state.LfRsE,LsRtE: this.state.LtRsE,LtRfE: this.state.LfRfE,
         LtRsE: this.state.LsRfE,LtRtE: this.state.LtRfE
         })
     }
 
     theLfunction() {
-        this.setState({FfRfE: this.state.UtRfE,FsRfE: this.state.UsRfE,
-        FtRfE: this.state.UfRfE,UfRfE: this.state.BfRtE,UsRfE: this.state.BsRtE,UtRfE: this.state.BtRtE,
-        BfRtE: this.state.DfRfE,BsRtE: this.state.DsRfE,BtRtE: this.state.DtRfE,DfRfE: this.state.FtRfE,
-        DsRfE: this.state.FsRfE,DtRfE: this.state.FfRfE,LfRfE: this.state.LtRfE,LfRsE: this.state.LsRfE,
+        this.setState({FfRfE: this.state.UfRfE,FsRfE: this.state.UsRfE,
+        FtRfE: this.state.UtRfE,UfRfE: this.state.BtRtE,UsRfE: this.state.BsRtE,UtRfE: this.state.BfRtE,
+        BfRtE: this.state.DtRfE,BsRtE: this.state.DsRfE,BtRtE: this.state.DfRfE,DfRfE: this.state.FfRfE,
+        DsRfE: this.state.FsRfE,DtRfE: this.state.FtRfE,LfRfE: this.state.LtRfE,LfRsE: this.state.LsRfE,
         LfRtE: this.state.LfRfE,LsRfE: this.state.LtRsE,LsRtE: this.state.LfRsE,LtRfE: this.state.LtRtE,
         LtRsE: this.state.LsRtE,LtRtE: this.state.LfRtE
         })
     }
 
     theMfunction() {
-        this.setState({FfRsE: this.state.UtRsE,FsRsE: this.state.UsRsE,
-        FtRsE: this.state.UfRsE,UfRsE: this.state.BfRsE,UsRsE: this.state.BsRsE,UtRsE: this.state.BtRsE,
-        BfRsE: this.state.DfRsE,BsRsE: this.state.DsRsE,BtRsE: this.state.DtRsE,DfRsE: this.state.FtRsE,
-        DsRsE: this.state.FsRsE,DtRsE: this.state.FfRsE
+        this.setState({FfRsE: this.state.UfRsE,FsRsE: this.state.UsRsE,
+        FtRsE: this.state.UtRsE,UfRsE: this.state.BtRsE,UsRsE: this.state.BsRsE,UtRsE: this.state.BfRsE,
+        BfRsE: this.state.DtRsE,BsRsE: this.state.DsRsE,BtRsE: this.state.DfRsE,DfRsE: this.state.FfRsE,
+        DsRsE: this.state.FsRsE,DtRsE: this.state.FtRsE
         })
     }
 
     theM_function() {
-        this.setState({FfRsE: this.state.DtRsE,FsRsE: this.state.DsRsE,
-        FtRsE: this.state.DfRsE,UfRsE: this.state.FtRsE,UsRsE: this.state.FsRsE,UtRsE: this.state.FfRsE,
-        BfRsE: this.state.UfRsE,BsRsE: this.state.UsRsE,BtRsE: this.state.UtRsE,DfRsE: this.state.BfRsE,
-        DsRsE: this.state.BsRsE,DtRsE: this.state.BtRsE
+        this.setState({FfRsE: this.state.DfRsE,FsRsE: this.state.DsRsE,
+        FtRsE: this.state.DtRsE,UfRsE: this.state.FfRsE,UsRsE: this.state.FsRsE,UtRsE: this.state.FtRsE,
+        BfRsE: this.state.UtRsE,BsRsE: this.state.UsRsE,BtRsE: this.state.UfRsE,DfRsE: this.state.BtRsE,
+        DsRsE: this.state.BsRsE,DtRsE: this.state.BfRsE
         })
     }
 
     theRWfunction() {
-        this.setState({FfRsE: this.state.DtRsE,FsRsE: this.state.DsRsE,
-        FtRsE: this.state.DfRsE,UfRsE: this.state.FtRsE,UsRsE: this.state.FsRsE,UtRsE: this.state.FfRsE,
-        BfRsE: this.state.UfRsE,BsRsE: this.state.UsRsE,BtRsE: this.state.UtRsE,DfRsE: this.state.BfRsE,
-        DsRsE: this.state.BsRsE,DtRsE: this.state.BtRsE,FfRtE: this.state.DtRtE,FsRtE: this.state.DsRtE,
-        FtRtE: this.state.DfRtE,UfRtE: this.state.FtRtE,UsRtE: this.state.FsRtE,UtRtE: this.state.FfRtE,
-        BtRfE: this.state.UtRtE,BsRfE: this.state.UsRtE,BfRfE: this.state.UfRtE,DfRtE: this.state.BfRfE,
-        DsRtE: this.state.BsRfE,DtRtE: this.state.BtRfE,RfRfE: this.state.RtRfE,RfRsE: this.state.RsRfE,
+        this.setState({FfRsE: this.state.DfRsE,FsRsE: this.state.DsRsE,
+        FtRsE: this.state.DtRsE,UfRsE: this.state.FfRsE,UsRsE: this.state.FsRsE,UtRsE: this.state.FtRsE,
+        BfRsE: this.state.UtRsE,BsRsE: this.state.UsRsE,BtRsE: this.state.UfRsE,DfRsE: this.state.BtRsE,
+        DsRsE: this.state.BsRsE,DtRsE: this.state.BfRsE,FfRtE: this.state.DfRtE,FsRtE: this.state.DsRtE,
+        FtRtE: this.state.DtRtE,UfRtE: this.state.FfRtE,UsRtE: this.state.FsRtE,UtRtE: this.state.FtRtE,
+        BtRfE: this.state.UfRtE,BsRfE: this.state.UsRtE,BfRfE: this.state.UtRtE,DfRtE: this.state.BtRfE,
+        DsRtE: this.state.BsRfE,DtRtE: this.state.BfRfE,RfRfE: this.state.RtRfE,RfRsE: this.state.RsRfE,
         RfRtE: this.state.RfRfE,RsRfE: this.state.RtRsE,RsRtE: this.state.RfRsE,RtRfE: this.state.RtRtE,
         RtRsE: this.state.RsRtE,RtRtE: this.state.RfRtE
         })
     }
 
     theRW_function() {
-        this.setState({FfRsE: this.state.UtRsE,FsRsE: this.state.UsRsE,
-        FtRsE: this.state.UfRsE,UfRsE: this.state.BfRsE,UsRsE: this.state.BsRsE,UtRsE: this.state.BtRsE,
-        BfRsE: this.state.DfRsE,BsRsE: this.state.DsRsE,BtRsE: this.state.DtRsE,DfRsE: this.state.FtRsE,
-        DsRsE: this.state.FsRsE,DtRsE: this.state.FfRsE,FfRtE: this.state.UtRtE,FsRtE: this.state.UsRtE,
-        FtRtE: this.state.UfRtE,UfRtE: this.state.BfRfE,UsRtE: this.state.BsRfE,UtRtE: this.state.BtRfE,
-        BfRfE: this.state.DfRtE,BsRfE: this.state.DsRtE,BtRfE: this.state.DtRtE,DfRtE: this.state.FtRtE,
-        DsRtE: this.state.FsRtE,DtRtE: this.state.FfRtE,RfRfE: this.state.RfRtE,RfRsE: this.state.RsRtE,
+        this.setState({FfRsE: this.state.UfRsE,FsRsE: this.state.UsRsE,
+        FtRsE: this.state.UtRsE,UfRsE: this.state.BtRsE,UsRsE: this.state.BsRsE,UtRsE: this.state.BfRsE,
+        BfRsE: this.state.DtRsE,BsRsE: this.state.DsRsE,BtRsE: this.state.DfRsE,DfRsE: this.state.FfRsE,
+        DsRsE: this.state.FsRsE,DtRsE: this.state.FtRsE,FfRtE: this.state.UfRtE,FsRtE: this.state.UsRtE,
+        FtRtE: this.state.UtRtE,UfRtE: this.state.BtRfE,UsRtE: this.state.BsRfE,UtRtE: this.state.BfRfE,
+        BfRfE: this.state.DtRtE,BsRfE: this.state.DsRtE,BtRfE: this.state.DfRtE,DfRtE: this.state.FfRtE,
+        DsRtE: this.state.FsRtE,DtRtE: this.state.FtRtE,RfRfE: this.state.RfRtE,RfRsE: this.state.RsRtE,
         RfRtE: this.state.RtRtE,RsRfE: this.state.RfRsE,RsRtE: this.state.RtRsE,RtRfE: this.state.RfRfE,
         RtRsE: this.state.RsRfE,RtRtE: this.state.RtRfE
         })
     }
 
     theLWfunction() {
-        this.setState({FfRsE: this.state.UtRsE,FsRsE: this.state.UsRsE,
-        FtRsE: this.state.UfRsE,UfRsE: this.state.BfRsE,UsRsE: this.state.BsRsE,UtRsE: this.state.BtRsE,
-        BfRsE: this.state.DfRsE,BsRsE: this.state.DsRsE,BtRsE: this.state.DtRsE,DfRsE: this.state.FtRsE,
-        DsRsE: this.state.FsRsE,DtRsE: this.state.FfRsE,FfRfE: this.state.UtRfE,FsRfE: this.state.UsRfE,
-        FtRfE: this.state.UfRfE,UfRfE: this.state.BfRtE,UsRfE: this.state.BsRtE,UtRfE: this.state.BtRtE,
-        BfRtE: this.state.DfRfE,BsRtE: this.state.DsRfE,BtRtE: this.state.DtRfE,DfRfE: this.state.FtRfE,
-        DsRfE: this.state.FsRfE,DtRfE: this.state.FfRfE,LfRfE: this.state.LtRfE,LfRsE: this.state.LsRfE,
+        this.setState({FfRsE: this.state.UfRsE,FsRsE: this.state.UsRsE,
+        FtRsE: this.state.UtRsE,UfRsE: this.state.BtRsE,UsRsE: this.state.BsRsE,UtRsE: this.state.BfRsE,
+        BfRsE: this.state.DtRsE,BsRsE: this.state.DsRsE,BtRsE: this.state.DfRsE,DfRsE: this.state.FfRsE,
+        DsRsE: this.state.FsRsE,DtRsE: this.state.FtRsE,FfRfE: this.state.UfRfE,FsRfE: this.state.UsRfE,
+        FtRfE: this.state.UtRfE,UfRfE: this.state.BtRtE,UsRfE: this.state.BsRtE,UtRfE: this.state.BfRtE,
+        BfRtE: this.state.DtRfE,BsRtE: this.state.DsRfE,BtRtE: this.state.DfRfE,DfRfE: this.state.FfRfE,
+        DsRfE: this.state.FsRfE,DtRfE: this.state.FtRfE,LfRfE: this.state.LtRfE,LfRsE: this.state.LsRfE,
         LfRtE: this.state.LfRfE,LsRfE: this.state.LtRsE,LsRtE: this.state.LfRsE,LtRfE: this.state.LtRtE,
         LtRsE: this.state.LsRtE,LtRtE: this.state.LfRtE
         })
     }
 
     theLW_function() {
-        this.setState({FfRsE: this.state.DtRsE,FsRsE: this.state.DsRsE,
-        FtRsE: this.state.DfRsE,UfRsE: this.state.FtRsE,UsRsE: this.state.FsRsE,UtRsE: this.state.FfRsE,
-        BfRsE: this.state.UfRsE,BsRsE: this.state.UsRsE,BtRsE: this.state.UtRsE,DfRsE: this.state.BfRsE,
-        DsRsE: this.state.BsRsE,DtRsE: this.state.BtRsE,FfRfE: this.state.DtRfE,FsRfE: this.state.DsRfE,
-        FtRfE: this.state.DfRfE,UfRfE: this.state.FtRfE,UsRfE: this.state.FsRfE,UtRfE: this.state.FfRfE,
-        BfRtE: this.state.UfRfE,BsRtE: this.state.UsRfE,BtRtE: this.state.UtRfE,DfRfE: this.state.BfRtE,
-        DsRfE: this.state.BsRtE,DtRfE: this.state.BtRtE,LfRfE: this.state.LfRtE,LfRsE: this.state.LsRtE,
+        this.setState({FfRsE: this.state.DfRsE,FsRsE: this.state.DsRsE,
+        FtRsE: this.state.DtRsE,UfRsE: this.state.FfRsE,UsRsE: this.state.FsRsE,UtRsE: this.state.FtRsE,
+        BfRsE: this.state.UtRsE,BsRsE: this.state.UsRsE,BtRsE: this.state.UfRsE,DfRsE: this.state.BtRsE,
+        DsRsE: this.state.BsRsE,DtRsE: this.state.BfRsE,FfRfE: this.state.DfRfE,FsRfE: this.state.DsRfE,
+        FtRfE: this.state.DtRfE,UfRfE: this.state.FfRfE,UsRfE: this.state.FsRfE,UtRfE: this.state.FtRfE,
+        BfRtE: this.state.UtRfE,BsRtE: this.state.UsRfE,BtRtE: this.state.UfRfE,DfRfE: this.state.BtRtE,
+        DsRfE: this.state.BsRtE,DtRfE: this.state.BfRtE,LfRfE: this.state.LfRtE,LfRsE: this.state.LsRtE,
         LfRtE: this.state.LtRtE,LsRfE: this.state.LfRsE,LsRtE: this.state.LtRsE,LtRfE: this.state.LfRfE,
         LtRsE: this.state.LsRfE,LtRtE: this.state.LtRfE
+        })
+    }
+
+    theFfunction() {
+        this.setState({RfRfE: this.state.UtRfE,RsRfE: this.state.UtRsE,
+        RtRfE: this.state.UtRtE,UtRfE: this.state.LtRtE,UtRsE: this.state.LsRtE,UtRtE: this.state.LfRtE,
+        LfRtE: this.state.DfRfE,LsRtE: this.state.DfRsE,LtRtE: this.state.DfRtE,DfRfE: this.state.RtRfE,
+        DfRsE: this.state.RsRfE,DfRtE: this.state.RfRfE,FfRfE: this.state.FtRfE,FfRsE: this.state.FsRfE,
+        FfRtE: this.state.FfRfE,FsRfE: this.state.FtRsE,FsRtE: this.state.FfRsE,FtRfE: this.state.FtRtE,
+        FtRsE: this.state.FsRtE,FtRtE: this.state.FfRtE
+        })
+    }
+
+    theF_function() {
+        this.setState({RfRfE: this.state.DfRtE,RsRfE: this.state.DfRsE,
+        RtRfE: this.state.DfRfE,UtRfE: this.state.RfRfE,UtRsE: this.state.RsRfE,UtRtE: this.state.RtRfE,
+        LfRtE: this.state.UtRtE,LsRtE: this.state.UtRsE,LtRtE: this.state.UtRfE,DfRfE: this.state.LfRtE,
+        DfRsE: this.state.LsRtE,DfRtE: this.state.LtRtE,FfRfE: this.state.FfRtE,FfRsE: this.state.FsRtE,
+        FfRtE: this.state.FtRtE,FsRfE: this.state.FfRsE,FsRtE: this.state.FtRsE,FtRfE: this.state.FfRfE,
+        FtRsE: this.state.FsRfE,FtRtE: this.state.FtRfE
+        })
+    }
+
+    theBfunction() {
+        this.setState({RfRtE: this.state.DtRtE,RsRtE: this.state.DtRsE,
+        RtRtE: this.state.DtRfE,UfRfE: this.state.RfRtE,UfRsE: this.state.RsRtE,UfRtE: this.state.RtRtE,
+        LfRfE: this.state.UfRtE,LsRfE: this.state.UfRsE,LtRfE: this.state.UfRfE,DtRfE: this.state.LfRfE,
+        DtRsE: this.state.LsRfE,DtRtE: this.state.LtRfE,BfRfE: this.state.BtRfE,BfRsE: this.state.BsRfE,
+        BfRtE: this.state.BfRfE,BsRfE: this.state.BtRsE,BsRtE: this.state.BfRsE,BtRfE: this.state.BtRtE,
+        BtRsE: this.state.BsRtE,BtRtE: this.state.BfRtE
+        })
+    }
+
+    theB_function() {
+        this.setState({RfRtE: this.state.UfRfE,RsRtE: this.state.UfRsE,
+        RtRtE: this.state.UfRtE,UfRfE: this.state.LtRfE,UfRsE: this.state.LsRfE,UfRtE: this.state.LfRfE,
+        LfRfE: this.state.DtRfE,LsRfE: this.state.DtRsE,LtRfE: this.state.DtRtE,DtRfE: this.state.RtRtE,
+        DtRsE: this.state.RsRtE,DtRtE: this.state.RfRtE,BfRfE: this.state.BfRtE,BfRsE: this.state.BsRtE,
+        BfRtE: this.state.BtRtE,BsRfE: this.state.BfRsE,BsRtE: this.state.BtRsE,BtRfE: this.state.BfRfE,
+        BtRsE: this.state.BsRfE,BtRtE: this.state.BtRfE
+        })
+    }
+
+    theSfunction() {
+        this.setState({RfRsE: this.state.UsRfE,RsRsE: this.state.UsRsE,
+        RtRsE: this.state.UsRtE,UsRfE: this.state.LtRsE,UsRsE: this.state.LsRsE,UsRtE: this.state.LfRsE,
+        LfRsE: this.state.DsRfE,LsRsE: this.state.DsRsE,LtRsE: this.state.DsRtE,DsRfE: this.state.RtRsE,
+        DsRsE: this.state.RsRsE,DsRtE: this.state.RfRsE
+        })
+    }
+
+    theS_function() {
+        this.setState({RfRsE: this.state.DsRtE,RsRsE: this.state.DsRsE,
+        RtRsE: this.state.DsRfE,UsRfE: this.state.RfRsE,UsRsE: this.state.RsRsE,UsRtE: this.state.RtRsE,
+        LfRsE: this.state.UsRtE,LsRsE: this.state.UsRsE,LtRsE: this.state.UsRfE,DsRfE: this.state.LfRsE,
+        DsRsE: this.state.LsRsE,DsRtE: this.state.LtRsE
+        })
+    }
+
+    theFWfunction() {
+        this.setState({RfRsE: this.state.UsRfE,RsRsE: this.state.UsRsE,
+        RtRsE: this.state.UsRtE,UsRfE: this.state.LtRsE,UsRsE: this.state.LsRsE,UsRtE: this.state.LfRsE,
+        LfRsE: this.state.DsRfE,LsRsE: this.state.DsRsE,LtRsE: this.state.DsRtE,DsRfE: this.state.RtRsE,
+        DsRsE: this.state.RsRsE,DsRtE: this.state.RfRsE,RfRfE: this.state.UtRfE,RsRfE: this.state.UtRsE,
+        RtRfE: this.state.UtRtE,UtRfE: this.state.LtRtE,UtRsE: this.state.LsRtE,UtRtE: this.state.LfRtE,
+        LfRtE: this.state.DfRfE,LsRtE: this.state.DfRsE,LtRtE: this.state.DfRtE,DfRfE: this.state.RtRfE,
+        DfRsE: this.state.RsRfE,DfRtE: this.state.RfRfE,FfRfE: this.state.FtRfE,FfRsE: this.state.FsRfE,
+        FfRtE: this.state.FfRfE,FsRfE: this.state.FtRsE,FsRtE: this.state.FfRsE,FtRfE: this.state.FtRtE,
+        FtRsE: this.state.FsRtE,FtRtE: this.state.FfRtE
+        })
+    }
+
+    theFW_function() {
+        this.setState({RfRsE: this.state.DsRtE,RsRsE: this.state.DsRsE,
+        RtRsE: this.state.DsRfE,UsRfE: this.state.RfRsE,UsRsE: this.state.RsRsE,UsRtE: this.state.RtRsE,
+        LfRsE: this.state.UsRtE,LsRsE: this.state.UsRsE,LtRsE: this.state.UsRfE,DsRfE: this.state.LfRsE,
+        DsRsE: this.state.LsRsE,DsRtE: this.state.LtRsE,RfRfE: this.state.DfRtE,RsRfE: this.state.DfRsE,
+        RtRfE: this.state.DfRfE,UtRfE: this.state.RfRfE,UtRsE: this.state.RsRfE,UtRtE: this.state.RtRfE,
+        LfRtE: this.state.UtRtE,LsRtE: this.state.UtRsE,LtRtE: this.state.UtRfE,DfRfE: this.state.LfRtE,
+        DfRsE: this.state.LsRtE,DfRtE: this.state.LtRtE,FfRfE: this.state.FfRtE,FfRsE: this.state.FsRtE,
+        FfRtE: this.state.FtRtE,FsRfE: this.state.FfRsE,FsRtE: this.state.FtRsE,FtRfE: this.state.FfRfE,
+        FtRsE: this.state.FsRfE,FtRtE: this.state.FtRfE
+        })
+    }
+
+    theBWfunction() {
+        this.setState({RfRsE: this.state.DsRtE,RsRsE: this.state.DsRsE,
+        RtRsE: this.state.DsRfE,UsRfE: this.state.RfRsE,UsRsE: this.state.RsRsE,UsRtE: this.state.RtRsE,
+        LfRsE: this.state.UsRtE,LsRsE: this.state.UsRsE,LtRsE: this.state.UsRfE,DsRfE: this.state.LfRsE,
+        DsRsE: this.state.LsRsE,DsRtE: this.state.LtRsE,RfRtE: this.state.DtRtE,RsRtE: this.state.DtRsE,
+        RtRtE: this.state.DtRfE,UfRfE: this.state.RfRtE,UfRsE: this.state.RsRtE,UfRtE: this.state.RtRtE,
+        LfRfE: this.state.UfRtE,LsRfE: this.state.UfRsE,LtRfE: this.state.UfRfE,DtRfE: this.state.LfRfE,
+        DtRsE: this.state.LsRfE,DtRtE: this.state.LtRfE,BfRfE: this.state.BtRfE,BfRsE: this.state.BsRfE,
+        BfRtE: this.state.BfRfE,BsRfE: this.state.BtRsE,BsRtE: this.state.BfRsE,BtRfE: this.state.BtRtE,
+        BtRsE: this.state.BsRtE,BtRtE: this.state.BfRtE
+        })
+    }
+
+    theBW_function() {
+        this.setState({RfRsE: this.state.UsRfE,RsRsE: this.state.UsRsE,
+        RtRsE: this.state.UsRtE,UsRfE: this.state.LtRsE,UsRsE: this.state.LsRsE,UsRtE: this.state.LfRsE,
+        LfRsE: this.state.DsRfE,LsRsE: this.state.DsRsE,LtRsE: this.state.DsRtE,DsRfE: this.state.RtRsE,
+        DsRsE: this.state.RsRsE,DsRtE: this.state.RfRsE,RfRtE: this.state.UfRfE,RsRtE: this.state.UfRsE,
+        RtRtE: this.state.UfRtE,UfRfE: this.state.LtRfE,UfRsE: this.state.LsRfE,UfRtE: this.state.LfRfE,
+        LfRfE: this.state.DtRfE,LsRfE: this.state.DtRsE,LtRfE: this.state.DtRtE,DtRfE: this.state.RtRtE,
+        DtRsE: this.state.RsRtE,DtRtE: this.state.RfRtE,BfRfE: this.state.BfRtE,BfRsE: this.state.BsRtE,
+        BfRtE: this.state.BtRtE,BsRfE: this.state.BfRsE,BsRtE: this.state.BtRsE,BtRfE: this.state.BfRfE,
+        BtRsE: this.state.BsRfE,BtRtE: this.state.BtRfE
         })
     }
 
@@ -295,13 +442,26 @@ class RubiksCube extends React.Component {
                 maX = Math.floor(max)
             return Math.floor(Math.random() * (maX - miN) + miN);
         }
+
         let moves = [this.theDWfunction,this.theD_function,this.theDfunction,this.theE_function,this.theEfunction,
-                     this.theUfunction,this.theU_function,this.theDW_function,this.theUW_function,this.theUWfunction,
-                     this.theRfunction,this.theR_function,this.theL_function,this.theLfunction,this.theMfunction,this.theM_function]        
-        for(let i = 0;i < 15;i++) {
-           let x = randomN(16,0)
+            this.theUfunction,this.theU_function,this.theDW_function,this.theUW_function,this.theUWfunction,
+            this.theRfunction,this.theR_function,this.theL_function,this.theLfunction,this.theMfunction,this.theM_function,
+            this.theRWfunction,this.theRW_function,this.theLWfunction,this.theLW_function,this.theFfunction,
+            this.theF_function,this.theBfunction,this.theB_function,this.theSfunction,this.theS_function,this.theFWfunction,
+            this.theFW_function,this.theBWfunction,this.theBW_function]   
+            let scramble = []     
+
+            let i = 0
+    function cramFunc() {
+        if(i++ < 16) {
+            let x = randomN(29,0)
+            scramble.push(moves[x])
             moves[x]()
+               setTimeout(cramFunc, 2000)
         }
+    }
+        cramFunc()
+        this.setState({x: scramble})
     }
 
     render() {
@@ -445,7 +605,17 @@ class RubiksCube extends React.Component {
              <Button className="rubiksButton" variant="success" onClick={this.theRWfunction}>Rw</Button>   
              <Button className="rubiksButton" variant="success" onClick={this.theRW_function}>Rw'</Button>   
              <Button className="rubiksButton" variant="success" onClick={this.theLWfunction}>Lw</Button>         
-             <Button className="rubiksButton" variant="success" onClick={this.theLW_function}>Lw'</Button>               
+             <Button className="rubiksButton" variant="success" onClick={this.theLW_function}>Lw'</Button>
+             <Button className="rubiksButton" variant="success" onClick={this.theFfunction}>F</Button>
+             <Button className="rubiksButton" variant="success" onClick={this.theF_function}>F'</Button> 
+             <Button className="rubiksButton" variant="success" onClick={this.theBfunction}>B</Button>            
+             <Button className="rubiksButton" variant="success" onClick={this.theB_function}>B'</Button>   
+             <Button className="rubiksButton" variant="success" onClick={this.theSfunction}>S</Button>
+             <Button className="rubiksButton" variant="success" onClick={this.theS_function}>S'</Button> 
+             <Button className="rubiksButton" variant="success" onClick={this.theFWfunction}>Fw</Button>                    
+             <Button className="rubiksButton" variant="success" onClick={this.theFW_function}>Fw'</Button>                    
+             <Button className="rubiksButton" variant="success" onClick={this.theBWfunction}>Bw</Button>                        
+             <Button className="rubiksButton" variant="success" onClick={this.theBW_function}>Bw'</Button>                                                    
             </div>
             <div id="otherButtons">
              <Button className="rubiksButton" variant="success" onClick={this.theYfunction}>Y</Button>   
@@ -453,6 +623,8 @@ class RubiksCube extends React.Component {
              <Button className="rubiksButton" variant="success" onClick={this.theXfunction}>X</Button>
              <Button className="rubiksButton" variant="success" onClick={this.theX_function}>X'</Button>
              <Button className="rubiksButton" variant="success" onClick={this.theScramble}>Scramble</Button> 
+             <TimeButtons />
+             <MoveToObject array={this.state.x} />
             </div>
         </div>
     </>
@@ -507,20 +679,7 @@ class Challenge1 extends React.Component {
 function clear(interval,array,number) {
      clearInterval(interval);
 
-     var timer = 60 * 15, display = document.querySelector('#time'),minutes, seconds;
-     setInterval(function () {
-         minutes = parseInt(timer / 60, 10);
-         seconds = parseInt(timer % 60, 10);
- 
-         minutes = minutes < 10 ? "0" + minutes : minutes;
-         seconds = seconds < 10 ? "0" + seconds : seconds;
- 
-         display.textContent = minutes + ":" + seconds;
- 
-         if (--timer < 0) {
-             timer = 60 * 15;
-         }
-     }, 1000);
+    
 
     ReactDOM.render (
         <Challenge1 binary={array} number={number}/>,

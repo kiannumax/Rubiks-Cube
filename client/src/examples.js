@@ -9,6 +9,8 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker'; */
 
+
+
 /*           WebSite NavBar
    var varfaTimes = <FontAwesomeIcon icon={faTimes}/>
    var varfaSearch = <FontAwesomeIcon icon={faSearch}/>
