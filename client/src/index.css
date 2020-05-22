@@ -1,227 +1,11 @@
-/* body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
-}
-
-.indexnavbar {
-  background-color:grey;
-  justify-content:space-between;
-  }
- 
-  #collapsibleNavbar {
-   
-   
-  }
- 
-   
-  .supreme {
-   padding:3px;
-   background-color:red;
-   color:white;
-  }
- 
-  .indexSearch {
-   display:none;
-   transition-duration:0.5s;
-  }
- 
-  .btn:focus,.btn:active {
-    outline: none !important;
-    box-shadow: none;
-  }
- 
-  .indexcolumn1 {
-   height:700px;
-  }
- 
-  
-  .indexfooter {
-   background-color:dimgrey;
-  }
-
-#root {
-  font-weight:600;
-  font-style: italic;
-  font-size:18px;
-}
-
-#root2 {
-  font-weight:600;
-  font-style: italic;
-  font-size:18px;
-  position: absolute;
-  top:0px;
-  left:290px;
-}
-
-#clock {
-  position:relative;
-  left:800px;
-  top:-135px;
-}
-
-.form {
-  position:relative;
-  top:0px;
-  left:25px;
-}
-
-.butt {
-  position:relative;
-  left:45px;
-  top:-10px;
-  width:59px;
-  padding:2px;
-  background-color:green;
-  border:1px groove darkgreen;
-  border-radius:3px;
-  color:white;
-  font-weight:600;
-  opacity:0.7;
-  outline:none !important;
-}
-
-.butt:hover {
-  cursor:pointer;
-  opacity:1;
-}
-
-#greeting {
-  position: absolute;;
-  top:280px;
-  left:5px;
-}
-
-#pinga {
-position: relative;
-top:-55px;
-left:180px;
-}
-
-.addbutt {
-  position:relative;
-  top:-40px;
-  left:350px;
-  background-color:blue;
-  border:1px groove darkblue;
-  border-radius:3px;
-  outline:none !important;
-  color:white;
-  padding:2px;
-  width:40px;
-  opacity:0.7;
-}
-
-.addbutt:hover {
-  cursor:pointer;
-  opacity:1;
-}
-
-#numbers {
-  position:absolute;
-  left:600px;
-  top:5px;
-}
-
-#testInput {
-  position:absolute;
-  top:300px;
-  left:800px; 
-}
-
-#Euro {
-  position:absolute;
-  top:400px;
-  left:5px;
-}
- #animation {
-  outline:1px groove grey;
-  border:1px groove black;
-  width:50px;
-  height:50px;
-  position:absolute;
-  top:300px;
-  left:10px;
-  animation-name:square;
-  animation-delay:0s;
-  animation-duration:5s;
-  animation-iteration-count:infinite;
-  animation-fill-mode: initial;
-  animation-timing-function: ease;
-  animation-play-state: running;
-}
-
-@keyframes square {
-0% {left:10px;background-color:black;top:300px;transform:rotate(0deg)};
-5% {left:20px;background-color:darkslategrey;top:300px;transform:rotate(20deg)};
-10% {left:30px;background-color:grey;top}
-100% {left:100px;};
-} 
-
-#binary {
-  z-index:999;
-  position:absolute;
-  top:100px;
-  left:550px;
-  justify-content:space-between;
-}
-
-#butt {
-  margin:5px;
-  outline: none !important;
-  border:none !important;
-}
-
-#number {
-  z-index:999;
-  position:absolute;
-  top:20px;
-  left:550px;
-  color:white;
-}     */
-
 body {
   margin:none;
   padding:none;
-  background-color:black;
-  animation-name:bodyColor;
-  animation-delay:4s;
-  animation-duration:10s;
-  animation-iteration-count:infinite;
-  animation-direction:alternate;
+  background-color:white;
 }
-
-@keyframes bodyColor {
-  0%{background-color:black};
-  10%{background-color:rgb(44, 1, 1)}
-  20%{background-color:rgb(66, 9, 9)}
-  30%{background-color:rgb(95, 3, 3)}
-  40%{background-color:rgb(102, 0, 0)}
-  50%{background-color:rgb(114, 12, 12)}
-  60%{background-color:rgb(112, 11, 11)}
-  70%{background-color:rgb(122, 12, 12)}
-  80%{background-color:rgb(133, 4, 4)}
-  90%{background-color:rgb(134, 6, 6)}
-  100%{background-color:rgb(153, 0, 0)}
-}
-
 
 #cardDiv {
-  z-index:999;
-  position:absolute;
-  top:100px;
-  left:550px;
   display:flex;
-  flex-direction:row;
   align-items:center;
   justify-content:center;
   vertical-align:center;
@@ -234,16 +18,16 @@ body {
   padding-bottom:-10px;
 }
 
-#cardId:hover {
-  cursor:not-allowed;
-}
-
 #slow-spin{
   animation:fa-spin 8s infinite linear;
 }
 
+#cardInput {
+  align-items:center;
+}
+
 #cardInput:focus {
-  outline:2px rgb(165, 0, 0) groove;
+  outline:2px rgb(17, 2, 2) groove;
 }
 
 #cardText {
@@ -252,26 +36,6 @@ body {
   font-family:cursive;
   font-weight:600;
   font-size:20px;
-}
-
-#dontText {
-  font-family:fantasy;
-  font-weight:900;
-  font-size:6px;
-  margin-bottom:none;
-  display:flex;
-  justify-content:space-between;
-}
-
-#neverId {
-  color:rgb(172, 10, 10);
-}
-
-#challengeOne {
-  z-index:999;
-  position:absolute;
-  top:20px;
-  left:920px;
 }
 
 #time {
@@ -283,49 +47,20 @@ body {
   font-size: 80px;
 }
 
-#canvas {
-  z-index:1;
-  position:absolute;
-}
-
-
-
-
- /* #rubiksCube {
-   height:840px;
-   width:633px;
-   position:absolute;
-   top:5px;
-   left:280px;
-   border: 2px groove black; 
-   z-index:100;
-   display:grid;
-  grid-template-columns: auto auto auto auto;
-   grid-gap: 2px;
-   transform-style: preserve-3d 
-  
- }
-
-.side {
-  height:209px;
-  width:210;
-  z-index:100;
-  display:row;
-} */
-
 #buttons {
   position:absolute;
   top:450px;
   display: grid;
-  grid-template-columns: auto auto auto;
-  z-index:100;
+  grid-template-columns: 540px 260px 430px 155px;
+  grid-template-rows: 158px 158px;
   margin-top: 30px;
   border-top: 1.5px groove grey;
   border-right: 1.5px groove grey;
   padding-top: 5px;
   padding-right: 5px;
-  padding-left: 10px;
-  height:342px;
+  padding-left: 5px;
+  height:320px;
+  width: 100%
 }
 
 .rubiksRow {
@@ -339,7 +74,6 @@ body {
 
 .RubiksElement {
   width:70px;
-  /*height:69px;*/
   border:1px groove black;
   z-index: 100;
   transition:1s
@@ -349,16 +83,38 @@ body {
   outline: none !important;
 } 
 
-
   #moves {
     display: grid;
-    grid-template-columns: auto auto auto auto;
+    grid-template-columns: auto auto auto auto auto;
     grid-gap: 2px;
   }
 
  #otherButtons {
-   margin-left: 500px;;
+  grid-column-start: 4;
+  grid-column-end: 4;
+  grid-row-start: 1;
+  grid-row-end: 1;
  }
+
+#scramble {
+  padding-left: 20px;
+  padding-right: 20px;
+  display: grid;
+  grid-template-columns: 310px 80px;
+}
+
+#scrambleButtons {
+  grid-column-start: 2;
+  grid-column-end: 2;
+  padding-left:10px;
+  padding-right:10px;
+}
+
+#scrambleList {
+  display: grid;
+  grid-template-columns: 30px 30px 30px 30px;
+  grid-gap: 50px;
+}
 
 #wrap {
    position:absolute; 
@@ -370,14 +126,9 @@ body {
 }
 
 #rubiksCube {
-  /* display:grid;
-  grid-template-columns: auto auto auto auto;
-  grid-gap: 2px; */
   position:relative;
-  /*height:840px; */
   margin: 0 auto;
-  /*width: 210px; */
-  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
   z-index: 100;
   transition: 2s;
   transform-origin: 0 100px;
@@ -397,7 +148,7 @@ body {
 
 #RightSide {
   transform: rotateY(-270deg) translateX(100px);
-  -webkit-transform-origin:top right;
+  transform-origin:top right;
 }
 
 #LeftSide {

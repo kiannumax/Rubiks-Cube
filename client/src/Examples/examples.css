@@ -1,0 +1,190 @@
+/* body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.indexnavbar {
+  background-color:grey;
+  justify-content:space-between;
+  }
+ 
+  #collapsibleNavbar {
+   
+   
+  }
+ 
+   
+  .supreme {
+   padding:3px;
+   background-color:red;
+   color:white;
+  }
+ 
+  .indexSearch {
+   display:none;
+   transition-duration:0.5s;
+  }
+ 
+  .btn:focus,.btn:active {
+    outline: none !important;
+    box-shadow: none;
+  }
+ 
+  .indexcolumn1 {
+   height:700px;
+  }
+ 
+  
+  .indexfooter {
+   background-color:dimgrey;
+  }
+
+#root {
+  font-weight:600;
+  font-style: italic;
+  font-size:18px;
+}
+
+#root2 {
+  font-weight:600;
+  font-style: italic;
+  font-size:18px;
+  position: absolute;
+  top:0px;
+  left:290px;
+}
+
+#clock {
+  position:relative;
+  left:800px;
+  top:-135px;
+}
+
+.form {
+  position:relative;
+  top:0px;
+  left:25px;
+}
+
+.butt {
+  position:relative;
+  left:45px;
+  top:-10px;
+  width:59px;
+  padding:2px;
+  background-color:green;
+  border:1px groove darkgreen;
+  border-radius:3px;
+  color:white;
+  font-weight:600;
+  opacity:0.7;
+  outline:none !important;
+}
+
+.butt:hover {
+  cursor:pointer;
+  opacity:1;
+}
+
+#greeting {
+  position: absolute;;
+  top:280px;
+  left:5px;
+}
+
+#pinga {
+position: relative;
+top:-55px;
+left:180px;
+}
+
+.addbutt {
+  position:relative;
+  top:-40px;
+  left:350px;
+  background-color:blue;
+  border:1px groove darkblue;
+  border-radius:3px;
+  outline:none !important;
+  color:white;
+  padding:2px;
+  width:40px;
+  opacity:0.7;
+}
+
+.addbutt:hover {
+  cursor:pointer;
+  opacity:1;
+}
+
+#numbers {
+  position:absolute;
+  left:600px;
+  top:5px;
+}
+
+#testInput {
+  position:absolute;
+  top:300px;
+  left:800px; 
+}
+
+#Euro {
+  position:absolute;
+  top:400px;
+  left:5px;
+}
+ #animation {
+  outline:1px groove grey;
+  border:1px groove black;
+  width:50px;
+  height:50px;
+  position:absolute;
+  top:300px;
+  left:10px;
+  animation-name:square;
+  animation-delay:0s;
+  animation-duration:5s;
+  animation-iteration-count:infinite;
+  animation-fill-mode: initial;
+  animation-timing-function: ease;
+  animation-play-state: running;
+}
+
+@keyframes square {
+0% {left:10px;background-color:black;top:300px;transform:rotate(0deg)};
+5% {left:20px;background-color:darkslategrey;top:300px;transform:rotate(20deg)};
+10% {left:30px;background-color:grey;top}
+100% {left:100px;};
+} 
+
+#binary {
+  z-index:999;
+  position:absolute;
+  top:100px;
+  left:550px;
+  justify-content:space-between;
+}
+
+#butt {
+  margin:5px;
+  outline: none !important;
+  border:none !important;
+}
+
+#number {
+  z-index:999;
+  position:absolute;
+  top:20px;
+  left:550px;
+  color:white;
+}     */

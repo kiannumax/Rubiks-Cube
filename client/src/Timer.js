@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 
 
-export function TimeButtons() {
+export default function TimeButtons() {
     const [intervalName, setInName]   = useState(null)
     const [startStopB, setstartStopB] = useState(false)
     const [resetB, setresetB]         = useState(false)
@@ -13,14 +13,18 @@ export function TimeButtons() {
      const startTimer = () => {
          setstartStopB(true)
          let  display = document.querySelector('#time'),
+         minutes2 = minutes,
+         seconds2 = seconds,
          tiMer = setInterval(() => {
-             let seconds2 = seconds >= 10 ? seconds : `0${seconds}`
-             let timer    = `${minutes}:${seconds2}`
-             let x = seconds + 1
-             setseconds(x)
-             if(seconds >= 60) {
-                 setseconds(0)
-                 setminutes(minutes + 1)
+             let seconds3 = seconds2 >= 10 ? seconds2 : `0${seconds2}`
+             let timer    = `${minutes2}:${seconds3}`
+             seconds2++
+             setseconds(seconds2)
+             if(seconds2 >= 60) {
+                 seconds2 = 0
+                 setseconds(seconds2)
+                 minutes2++
+                 setminutes(minutes2)
              }
              display.textContent = timer
          },1000)
@@ -42,8 +46,8 @@ export function TimeButtons() {
      return( 
          <>
           <Button className="rubiksButton" variant="success" onClick={
-          () => startStopB == false ? startTimer() : stopTimer()}>{startStopB == false ? "Start" : "Stop"}</Button>
-          {resetB == false ? null : <Button className="rubiksButton" variant="danger" onClick={resetTimer()}>Reset</Button>}
+          () => startStopB === false ? startTimer() : stopTimer()}>{startStopB === false ? "Start" : "Stop"}</Button>
+          {resetB === false ? null : <Button className="rubiksButton" variant="danger" onClick={resetTimer()}>Reset</Button>}
          </>
      )
  }
