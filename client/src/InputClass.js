@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSkullCrossbones } from '@fortawesome/free-solid-svg-icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -12,16 +13,16 @@ class InputClass extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleClose  = this.handleClose.bind(this);
         this.handleShow   = this.handleShow.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
         this.inputRef     = React.createRef();
     }
 
     componentDidMount() {
         this.inputRef.current.focus();
+        console.log(this.props)
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        console.log(nextState)
-
        if(nextState.showAlert !== this.state.showAlert) {
            return true
        } else {
@@ -46,13 +47,17 @@ class InputClass extends React.Component {
         }
     }
 
+    handleSubmit() {
+        this.props.history.push({pathname: '/rubiks'})
+        this.setState({showAlert: false})
+    }
+
     handleChange(event) {
         this.setState({value: event.target.value})
     }
 
     render() {
         let skullIcon = <FontAwesomeIcon spin id="slow-spin" icon={faSkullCrossbones} />;
-        console.log('kozel')
        
         return( 
      <> 
@@ -79,7 +84,7 @@ class InputClass extends React.Component {
             <Button variant="danger" onClick={this.handleClose}>
               No
             </Button>
-            <Button variant="success" onClick={this.props.handleShow}>
+            <Button variant="success" onClick={this.handleSubmit}>
               Yes
             </Button>
           </Modal.Footer>
@@ -87,6 +92,10 @@ class InputClass extends React.Component {
     </>
           )
         }
+    }
+
+    InputClass.propTypes = {
+        props: PropTypes.object,
     }
 
     export default InputClass

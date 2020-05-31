@@ -43,10 +43,11 @@ function MovesList(props) {
 }
 
 function MoveToObject(props) { 
-    let arr = []
-    props.array.map(move => {
+    let arr = [],
+        move = null
+    for(move of props.array) {
         arr.push({title: move.name})
-    })
+    }
     return <MovesList array={arr} />
 }
 

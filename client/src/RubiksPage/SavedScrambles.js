@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import Button from 'react-bootstrap/Button';
-
+import { SaveScrambleContext } from './RubiksCube.js'
+ 
 export function SaveScramble(array, func) {
-    let arr = []
-    array.map(move => {
+    let arr = [],
+        move = null
+    for(move of array) {
         let moveTitle = move.name.toString(),
         x = moveTitle.charAt(9),
         y = moveTitle.charAt(10),
@@ -22,17 +24,22 @@ export function SaveScramble(array, func) {
          }
 
         arr.push(moveName)
-    })
+    }
 
     func(arr, true)
 }
 
-function SavedScrambles3(props) {
+const SavedScrambles3 = props => {
     let item = props.move
+    
     return(
-        <li>
-            {localStorage.getItem(item)} <Button variant="danger" onClick={() => {props.func(item, false)}}>delete</Button>
+        <SaveScrambleContext.Consumer>
+        {func => (<li>
+            {localStorage.getItem(item)} <Button variant="danger" onClick={() => {func(item, false)}}>delete</Button>
         </li>
+        )}
+        </SaveScrambleContext.Consumer>
+        
     )
 }
 
@@ -55,12 +62,8 @@ export function SavedScrambles(props) {
         <ul>
            {storArr.map((move, index) => {
               let storKey = localStorage.key(move)
-             return  props.leng === 0 ? null : <SavedScrambles3 func={props.func} move={storKey} key={index} />
+             return  props.leng === 0 ? null : <SavedScrambles3 move={storKey} key={index} />
            })}
         </ul>
     )
 }
-
-
-
-// export default SavedScrambles()

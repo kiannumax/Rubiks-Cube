@@ -18,7 +18,12 @@ class ErrorBoundary extends React.Component {
 
    render() {
        if(this.state.hasError) {
-       return <h2 style={{color: 'red'}}>Ups... {this.state.errorInfo}</h2>
+       return( 
+           <>
+           <h2 style={{color: 'red'}}>Ups... {this.state.errorInfo}</h2>
+           <button onClick={() => {this.setState({hasError: false})}}>Click</button>
+           </>
+       )
        }
 
        return this.props.children

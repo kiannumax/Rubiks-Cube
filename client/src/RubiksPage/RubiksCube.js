@@ -1,11 +1,13 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 import React from 'react';
-import TimeButtons from './Timer.js'
+import { TimeButtons } from './Timer.js'
 import { SavedScrambles, SaveScramble } from './SavedScrambles.js'
 import MoveToObject from './Scramble.js'
 
-class RubiksCube extends React.Component {
+export const SaveScrambleContext = React.createContext(null)
+
+export class RubiksCube extends React.Component {
     constructor(props) {
         const b = "blue",
             o = "orange",
@@ -22,7 +24,7 @@ class RubiksCube extends React.Component {
         RsRtE: r,RtRfE: r,RtRsE: r,RtRtE: r,BfRfE: g,BfRsE: g,BfRtE: g,BsRfE: g,BsRsE: g,BsRtE: g,BtRfE: g,BtRsE: g,
         BtRtE: g,UfRfE: y,UfRsE: y,UfRtE: y,UsRfE: y,UsRsE: y,UsRtE: y,UtRfE: y,UtRsE: y,UtRtE: y,DfRfE: w,DfRsE: w,
         DfRtE: w,DsRfE: w,DsRsE: w,DsRtE: w,DtRfE: w,DtRsE: w,DtRtE: w,rotateY: 320,rotateX: 0,scrambleArr: [],
-        storage: localStorage.length,showScrambleButtons: false}
+        storage: localStorage.length, contextValue: this.storageUpdate.bind(this)}
 
         this.theUfunction   = this.theUfunction.bind(this);
         this.theU_function  = this.theU_function.bind(this);
@@ -63,7 +65,7 @@ class RubiksCube extends React.Component {
     }
 
     componentWillUnmount() {
-        this.setState({storage: null, scrambleArr: null, showScrambleButtons: null})
+        this.setState({storage: null, scrambleArr: null, showScrambleButtons: null, contextValue: null})
     }
 
     theUfunction() {
@@ -421,8 +423,7 @@ class RubiksCube extends React.Component {
         })
     }
 
-    theScramble() {
-        this.setState({showScrambleButtons: true}) 
+    theScramble() { 
         function randomN(max,min) {
             let miN = Math.ceil(min),
                 maX = Math.floor(max)
@@ -475,7 +476,7 @@ class RubiksCube extends React.Component {
     }
 
     scrambleClear() {
-        this.setState({scrambleArr: [], showScrambleButtons: false}) 
+        this.setState({scrambleArr: []}) 
     }
 
     render() {
@@ -485,7 +486,6 @@ class RubiksCube extends React.Component {
            transform: `rotateY(${y}deg) rotateX(${x}deg)`
        };
        
-      // let scrambleDiv =  document.getElementById("scrambleList").hasChildNodes 
 
         return(
     <>
@@ -602,7 +602,9 @@ class RubiksCube extends React.Component {
         </div>
         <div id="buttons">
             <div id="savedScrambles">
-                <SavedScrambles leng={this.state.storage} func={this.storageUpdate.bind(this)} />
+                <SaveScrambleContext.Provider value={this.state.contextValue}>
+                    <SavedScrambles leng={this.state.storage} />
+                </SaveScrambleContext.Provider> 
             </div>
             <div id="moves">
              <Button className="rubiksButton" variant="success" onClick={this.theUfunction}>U</Button>
@@ -639,7 +641,7 @@ class RubiksCube extends React.Component {
             <div id="scramble">
             {this.state.scrambleArr.length > 0 ? <MoveToObject array={this.state.scrambleArr} /> : null}
             <div id="scrambleButtons">
-            {this.state.showScrambleButtons ? <><Button variant="info" onClick={() => { 
+            {this.state.scrambleArr.length >= 15 ? <><Button variant="info" onClick={() => { 
                 SaveScramble(this.state.scrambleArr, this.storageUpdate.bind(this))}}> save</Button> 
                 <Button variant="danger" onClick={this.scrambleClear.bind(this)}>Clear</Button> </> : null }
             </div>
@@ -652,7 +654,7 @@ class RubiksCube extends React.Component {
              <Button className="rubiksButton" variant="success" onClick={this.theScramble}>Scramble</Button> 
              {/* {scrambleDiv ? <Button variant="info" onClick={() => { SaveScramble(this.state.scrambleArr, this.storageUpdate.bind(this))}}>
                                      save</Button> : null } */}
-             <TimeButtons /> 
+                <TimeButtons /> 
             </div>
         </div>
     </>
@@ -660,4 +662,3 @@ class RubiksCube extends React.Component {
     }
 }
             
-export default RubiksCube
