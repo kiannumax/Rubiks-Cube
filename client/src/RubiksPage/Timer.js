@@ -1,88 +1,60 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
-import PropTypes from 'prop-types'
-import { TimerContext } from './RubiksPage'
+import { TimerContext } from '../hoc/contexts/Timer/TimerContext'
 
-export class Timer extends React.Component {
+export function Timer() {
+    const {actualState} = useContext(TimerContext)
+    const [seconds, setSeconds] = useState(0)
+    const [minutes, setMinutes] = useState(0)
 
-    state = {
-        minutes: 0,
-        seconds: 0,
-        x: 0,
-        interval: null,
-        intervalFunc: () => {
-            if(this.state.seconds === 59) {
-                this.setState((prevState) => {
-                    return {
-                        minutes: prevState.minutes + 1,
-                        seconds: 0
-                    }
-                })
-                sessionStorage.setItem('minutes', this.state.minutes)
-                sessionStorage.setItem('seconds', this.state.seconds)
-            } else {
-                this.setState((prevState) => {
-                    return {
-                        seconds: prevState.seconds + 1
-                    }
-                })
-                sessionStorage.setItem('seconds', this.state.seconds)
-            }
-        }
-    }
-
-    componentDidMount() {
-        let tiMer = setInterval(this.state.intervalFunc, 1000)
-        this.setState({interval: tiMer})
-    }
-
-    componentWillUnmount() {
-        sessionStorage.clear()
-        clearInterval(this.state.interval)
-    }
-
-    componentDidUpdate() {
-        if(this.props.state === 'stop') {
-                clearInterval(this.state.interval)
-                if(this.state.x === 1) {
-                    this.setState({x: 0})
+    useEffect(() => {
+        let interval;
+        if(actualState.timeState === 'start' || actualState.timeState === 'resume') {
+            interval = setInterval(() => {
+                if(seconds === 59) {
+                    setSeconds(0)
+                    setMinutes(minutes + 1)
+                    sessionStorage.setItem('minutes', minutes)
+                    sessionStorage.setItem('seconds', seconds)
+                } else {
+                    setSeconds(seconds + 1)
+                    sessionStorage.setItem('seconds', seconds)
                 }
-        } 
-        else if(this.props.state === 'resume') {
-                   if(this.state.x === 0) {
-                     this.setState({x: 1})
-                     let timer = setInterval(this.state.intervalFunc, 1000)
-                     this.setState({interval: timer})
-                 }
+            }, 1000)  
+        } else {
+            clearInterval(interval)
         }
-    }
+        return () => clearInterval(interval)
+    }, [actualState.timeState, seconds, minutes])
 
-   render() {
-       let seconds = this.state.seconds > 9 ? this.state.seconds : `0${this.state.seconds}`;
-        return <p>{`${this.state.minutes}:${seconds}`}</p>
-   }
+    return (
+        <p>{minutes}:{seconds > 9 ? seconds : `0${seconds}`}</p>
+    )
+}
+
+export const TimeButtons = () => {
+    const {start, stop, actualState, reset, resume, saveTime} = useContext(TimerContext)
     
-}
+        return (
+            <> 
+                {actualState.timeState === 'reset' || actualState.timeState === 'none' ? 
+                <Button className="rubiksButton" variant="success" onClick={start}>Start</Button> :
 
-Timer.propTypes = {
-    state: PropTypes.string
-}
+                actualState.timeState === 'start' ? 
+                <Button className="rubiksButton" variant="danger" onClick={stop}>Stop</Button> :
 
-export const TimeButtons = () => (
-        <TimerContext.Consumer>
-           {({state, startTimer, stopTimer, resetTimer, resumeTimer}) => ( 
-               <> 
-                {state === 'reset' || state === 'none' ? 
-                <Button className="rubiksButton" variant="success" onClick={startTimer}>Start</Button> :
-                state === 'start' ? 
-                <Button className="rubiksButton" variant="danger" onClick={stopTimer}>Stop</Button> :
-                state === 'resume' ?
-                <Button className="rubiksButton" variant="danger" onClick={stopTimer}>Stop</Button> :
-                <Button className="rubiksButton" variant="success" onClick={resumeTimer}>Resume</Button>}
+                actualState.timeState === 'resume' ?
+                <Button className="rubiksButton" variant="danger" onClick={stop}>Stop</Button> :
                 
-                {state === 'stop' ? <Button className="rubiksButton" variant="danger" onClick={resetTimer}>Reset</Button> : null}
+                <Button className="rubiksButton" variant="success" onClick={resume}>Resume</Button>}
+                
+                {actualState.timeState === 'stop' ? 
+                <>
+                    <Button className="rubiksButton" variant="danger" onClick={reset}>Reset</Button>
+                    <Button className="rubiksButton" variant="info" onClick={() => {saveTime()}}>Save</Button> 
+                </>
+                 : null}
             </>
-            )}
-        </TimerContext.Consumer>
-     )
+        )   
+}

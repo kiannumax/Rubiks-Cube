@@ -11,5 +11,4 @@ const Layout = (Component, className) => {
        
 }
 
-
 export default Layout

@@ -1,25 +1,25 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSkullCrossbones } from '@fortawesome/free-solid-svg-icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
+import PropTypes from 'prop-types'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSkullCrossbones } from '@fortawesome/free-solid-svg-icons';
 
-class InputClass extends React.Component {
+export default class InputClass extends React.Component {
     constructor(props) {
         super(props);
-        this.state        = {value: '',showAlert: false};
-        this.handleChange = this.handleChange.bind(this);
-        this.handleClose  = this.handleClose.bind(this);
-        this.handleShow   = this.handleShow.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.inputRef     = React.createRef();
+        this.state            = {value: '',showAlert: false};
+        this.handleChange     = this.handleChange.bind(this);
+        this.handleClose      = this.handleClose.bind(this);
+        this.handleShow       = this.handleShow.bind(this);
+        this.handleSubmit     = this.handleSubmit.bind(this);
+        this.handleKeyHandler = this.handleKeyHandler.bind(this);
+        this.inputRef         = React.createRef();
     }
 
     componentDidMount() {
         this.inputRef.current.focus();
-        console.log(this.props)
     }
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -31,14 +31,18 @@ class InputClass extends React.Component {
         
     }
 
+    handleKeyHandler(event) {
+        if(event.key === 'Enter') {
+            this.handleShow()
+        } 
+    } 
+
     handleClose() {
         this.setState({showAlert: false,value: ''})
     }
 
     handleShow() {
-        let value = this.state.value;
-
-        if(value === '6') {
+        if(this.state.value === '6') {
             this.setState({showAlert: true})
         }
     
@@ -48,8 +52,17 @@ class InputClass extends React.Component {
     }
 
     handleSubmit() {
+        // console.log(event)
+        // if(event) {
+        //     console.log(event)
+        //     if(event.key === 'Enter') {
+        //         this.props.history.push({pathname: '/rubiks'})
+        //         this.setState({showAlert: false})
+        //     }
+        // } else {
         this.props.history.push({pathname: '/rubiks'})
         this.setState({showAlert: false})
+    //    }
     }
 
     handleChange(event) {
@@ -64,16 +77,24 @@ class InputClass extends React.Component {
       <div id="cardDiv">
         <div className="card" id="cardId">
             <div className="card-body">    
-                <label id="cardText" htmlFor="cardInput"> How many sides rubiks cube has? {skullIcon}</label> <br/>
-                <input type="text" placeholder="01110110" value={this.state.value} id="cardInput"
-                    onChange={this.handleChange} ref={this.inputRef} />
+                <label id="cardText" htmlFor="cardInput"> How many sides does rubiks cube have? {skullIcon}</label> <br/>
+                <input type="text"
+                       placeholder="01110110"
+                       value={this.state.value}
+                       id="cardInput"
+                       onChange={this.handleChange}
+                       onKeyPress={this.handleKeyHandler} 
+                       ref={this.inputRef} 
+                    />
                 <button style={{outline:"none"}} type="button" className="btn-sm btn-danger" data-toggle="modal" data-target={"#modalConfirm"}
                  onClick={this.handleShow}>Send 
                 </button> <br/>
             </div>
         </div>
         </div>
+
         <Modal show={this.state.showAlert}>
+            <div onKeyPress={this.handleSubmit}>
           <Modal.Header >
             <Modal.Title>Are you sure you want to do that?</Modal.Title>
           </Modal.Header>
@@ -84,10 +105,11 @@ class InputClass extends React.Component {
             <Button variant="danger" onClick={this.handleClose}>
               No
             </Button>
-            <Button variant="success" onClick={this.handleSubmit}>
+            <Button variant="success" onClick={this.handleSubmit} >
               Yes
             </Button>
           </Modal.Footer>
+          </div>
         </Modal>
     </>
           )
@@ -97,5 +119,3 @@ class InputClass extends React.Component {
     InputClass.propTypes = {
         props: PropTypes.object,
     }
-
-    export default InputClass

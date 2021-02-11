@@ -1,68 +1,44 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
-import { SaveScrambleContext } from './RubiksCube.js'
+import { ScrambleContext } from '../hoc/contexts/Rubiks/scramble/savedScramblesContext.js';
  
-export function SaveScramble(array, func) {
-    let arr = [],
-        move = null
-    for(move of array) {
-        let moveTitle = move.name.toString(),
-        x = moveTitle.charAt(9),
-        y = moveTitle.charAt(10),
-        moveName
 
-        if(y === '_') {
-            moveName = `${x}'`
-         } else if(y !== 'f') {
-             if(moveTitle.charAt(11) === '_') {
-                 moveName = `${x}${y}'`
-             } else {
-             moveName = `${x}${y}`
-             }
-         } else {
-             moveName = `${x}`
-         }
+const SavedScramble = ({move}) => {
+    const {deleteScramble, actualState, UseScramble} = useContext(ScrambleContext)
+    let item = actualState.storage[move].moves
 
-        arr.push(moveName)
-    }
-
-    func(arr, true)
-}
-
-const SavedScrambles3 = props => {
-    let item = props.move
-    
     return(
-        <SaveScrambleContext.Consumer>
-        {func => (<li>
-            {localStorage.getItem(item)} <Button variant="danger" onClick={() => {func(item, false)}}>delete</Button>
+        <li>
+            {item.join(', ')} <Button variant="danger" onClick={() => {deleteScramble(move)}}>Delete</Button>
+            <Button variant="info" onClick={() => {UseScramble(move)}}>Use</Button>
         </li>
-        )}
-        </SaveScrambleContext.Consumer>
-        
     )
 }
 
-export function SavedScrambles(props) {
+export default function SavedScrambles() {
    const [storArr, setStorArr] = useState([])
+   const { actualState, updateData, unLoading } = useContext(ScrambleContext)
 
     useEffect(() => {
-        let propLen = props.leng,
-        i = 0,
-        arr = []
+        let storage = actualState.storage,
+        lenArr = [];
+       
+        for(let i = 0; i < storage.length; i++) {
+            lenArr.push(i)
+        }
 
-        while(i < propLen) {
-           arr.push(i)
-            i++
-         }
-         setStorArr(arr)
-      },[props.leng]);
+         setStorArr(lenArr)
+         unLoading()
+         updateData()
+
+         // eslint-disable-next-line
+      }, [actualState.storage]);
 
     return(
         <ul>
-           {storArr.map((move, index) => {
-              let storKey = localStorage.key(move)
-             return  props.leng === 0 ? null : <SavedScrambles3 move={storKey} key={index} />
+           { actualState.updating ? null : storArr.map((move, index) => {
+             return  actualState.storage.length === 0 ? null : <SavedScramble move={move} key={index} />
            })}
         </ul>
     )

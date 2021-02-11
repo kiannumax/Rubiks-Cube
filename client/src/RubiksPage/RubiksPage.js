@@ -1,46 +1,42 @@
-import React, { useState } from 'react'
+import React, { useContext } from 'react'
+import { TimerContext } from '../hoc/contexts/Timer/TimerContext'
+import { MoveState } from '../hoc/contexts/Rubiks/movesContext'
+import { ScrambleState } from '../hoc/contexts/Rubiks/scramble/savedScramblesContext'
+import { OtherState } from '../hoc/contexts/Rubiks/other/otherContext'
+import ButtonSection from './ButtonSection'
 import { RubiksCube } from './RubiksCube'
 import { Timer } from './Timer'
 
-export const TimerContext = React.createContext(null)
+const Rubiks = () => {
+
+    return (
+   <OtherState>
+        <RubiksCube />
+       
+        <ScrambleState>
+            <ButtonSection />
+        </ScrambleState>  
+    </OtherState>
+    
+    )
+}
 
 export function RubiksPage() {
-    const [timerState, setTimerState] = useState('none')
-    const [showTimer, setShowTimer] = useState(false)
-
-    const startTimer = () => {
-        setTimerState('start')
-        setShowTimer(true)
-    }
-
-    const stopTimer = () => {
-        setTimerState('stop')
-    }
-
-    const resumeTimer = () => {
-        setTimerState('resume')
-    }
-
-    const resetTimer = () => {
-        setTimerState('reset')
-        setShowTimer(false)
-    }
+   const {actualState} = useContext(TimerContext)
 
     return (
         <>
             <div id="time">
-                {showTimer === true ? <Timer state={timerState} /> : null }
+                {actualState.timeState === 'reset' || actualState.timeState === 'none' ?
+                  null 
+                  : 
+                  <Timer state={actualState.timeState} />  
+                  }
             </div>
-            
-            <TimerContext.Provider value={{
-                state      : timerState,
-                startTimer : startTimer,
-                stopTimer  : stopTimer,
-                resetTimer : resetTimer,
-                resumeTimer: resumeTimer
-            }}>
-                <RubiksCube />
-            </TimerContext.Provider>
+
+            <MoveState>
+                <Rubiks />
+            </MoveState>
         </>
     )
 }
